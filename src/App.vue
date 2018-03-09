@@ -15,9 +15,9 @@
   <!-- NAVBAR -->
    <nav class="red darken-2">
     <div class="nav-wrapper center">
-      <router-link to="/home" class="brand-logo center">AprobandoUNS</router-link>
-      <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-      <ul class="left hide-on-med-and-down ">
+      <router-link to="/home" class="brand-logo center hide-on-med-and-down">AprobandoUNS</router-link>
+      <a class="button-collapse"></a>
+      <ul class="left">
         <router-link
         tag="li"
         active-class="active"
@@ -29,24 +29,6 @@
         <router-link
         tag="li"
         active-class="active"
-        exact
-        to="/carreras"
-        >
-        <a>Carreras</a>
-        </router-link>
-
-        
-      </ul>
-      <ul class="side-nav" id="mobile-demo">
-        <router-link
-        tag="li"
-        exact
-        to="/home"
-        >
-        <a>Inicio</a>
-        </router-link>
-        <router-link
-        tag="li"
         exact
         to="/carreras"
         >
@@ -87,8 +69,6 @@
         <p>
           © Esto no tiene derechos de autor
         </p>
-        
-        <!-- <router-link class="grey-text text-lighten-4 right" to="">Por ahora no hay links</router-link> -->
         </div>
       </div>
     </footer>
@@ -111,17 +91,18 @@ Vue.use(VueRouter)
 
 
 const routes = [
+  {path: '/', component: Home},
   {path: '/carreras', component: Carreras},
   {path: '/home', component: Home},
   {path: '/cursos/:id', name: 'cursos', component: Cursos},
   {path: '/examenes/:id', name: 'examenes', component: Examenes},
-  {path: '*', component: Home},
+  {path: '*', Home},
 ]
 
 const router = new VueRouter({
   routes,
   mode: 'history',
-  base: '/'
+  base: './'
 })
 export default {
   name: 'app',

@@ -13,221 +13,221 @@
 </style>
 
 <template>
-  <div class="container">
-      <h2 class=" center-align red-text text-lighten-3">{{nombre['.value']}}</h2>
-      <div class="row">
-        <p class="col s3">
-            <input @click="cambiarUnidad(1)" name="group1" type="radio" id="unidad1" ref="botonUnidad1"/>
-            <label class=" black-text" for="unidad1">Primera Unidad</label>
+  <div class="container red">
+    <h2 class=" center-align red-text text-lighten-3">{{nombre['.value']}}</h2>
+    <div class="row">
+      <p class="col s6 m3">
+          <input @click="cambiarUnidad(1)" name="group1" type="radio" id="unidad1" ref="botonUnidad1"/>
+          <label class=" black-text" for="unidad1">Primera Unidad</label>
+      </p>
+      <p class="col s6 m3">
+          <input @click="cambiarUnidad(2)" name="group1" type="radio" id="unidad2" />
+          <label class=" black-text" for="unidad2">Segunda Unidad</label>
+      </p>
+      <p class="col s6 m3">
+          <input @click="cambiarUnidad(3)" name="group1" type="radio" id="unidad3" />
+          <label class=" black-text" for="unidad3">Tercera Unidad</label>
+      </p>
+      <p class="col s6 m3">
+          <input @click="cambiarUnidad(4)" name="group1" type="radio" id="susti" />
+          <label class=" black-text" for="susti">Sustitorio</label>
         </p>
-        <p class="col s3">
-            <input @click="cambiarUnidad(2)" name="group1" type="radio" id="unidad2" />
-            <label class=" black-text" for="unidad2">Segunda Unidad</label>
-        </p>
-        <p class="col s3">
-            <input @click="cambiarUnidad(3)" name="group1" type="radio" id="unidad3" />
-            <label class=" black-text" for="unidad3">Tercera Unidad</label>
-        </p>
-        <p class="col s3">
-            <input @click="cambiarUnidad(4)" name="group1" type="radio" id="susti" />
-            <label class=" black-text" for="susti">Sustitorio</label>
+    </div>
+
+    <div id="alertas" class="row">
+      <transition name="slide-fade">
+        <div v-if="mensajeError" class="" role="alert">
+          <p class="flow-text center-align red accent-1 red-text text-darken-4">
+            {{ mensajeError }}
+            <i class="material-icons prefix">error</i>
           </p>
-      </div>
-
-      <div id="alertas" class="row">
-        <transition name="slide-fade">
-          <div v-if="mensajeError" class="" role="alert">
-            <p class="flow-text center-align red accent-1 red-text text-darken-4">
-              {{ mensajeError }}
-              <i class="material-icons prefix">error</i>
-            </p>
-          </div>
-        </transition>
-
-        <transition name="slide-fade">
-          <div v-if="mensajeExito" class="" role="alert">
-            <p class="flow-text center-align green accent-1 green-text text-darken-4" v-if="mensajeExito">
-              {{ mensajeExito }}
-              <i class="material-icons prefix">check_circle</i>
-            </p>
-          </div>
-        </transition>
-      </div>
-
-      <!-- card de colaborar -->
-      <div class="card green lighten-2">
-        <div class="card-image waves-effect waves-block waves-light">
-          <!-- <img class="activator" src="images/office.jpg"> -->
         </div>
-        <div class="card-content">
-          <br>
-          <br>
-          <span v-if="unidadSeleccionada==4" class="card-title flow-text center-align activator grey-text text-darken-4">AYÚDANOS - SUSTIS<i class="material-icons right">expand_more</i></span>
-          <span v-else class="card-title flow-text center-align activator grey-text text-darken-4">AYÚDANOS - {{unidadSeleccionada}}° UNIDAD<i class="material-icons right">expand_more</i></span>
-          <br>
-          <br>
-          <p class="flow-text center-align" v-if="unidadSeleccionada==4" ><span>Si deseas colaborar con esta página, abré la tarjeta y coloca un examen sustitorio, en los comentarios pones la unidad.</span></p>
-          <p class="flow-text center-align" v-else><span>Si deseas colaborar con esta página, abré la tarjeta y coloca un examen de la {{unidadSeleccionada}}° unidad.</span></p>
-          <br>
-          <br>
+      </transition>
+
+      <transition name="slide-fade">
+        <div v-if="mensajeExito" class="" role="alert">
+          <p class="flow-text center-align green accent-1 green-text text-darken-4" v-if="mensajeExito">
+            {{ mensajeExito }}
+            <i class="material-icons prefix">check_circle</i>
+          </p>
         </div>
-        
-        <!-- Subir imagen -->
-        <div class="card-reveal green lighten-4">
-          <form @submit.prevent="enviarExamen">
-            <span ref="cerrarCard" class="center-align card-title grey-text text-darken-4">¡Gracias!<i class="material-icons right">close</i></span>
-            <div class="file-field input-field">
-              <div class="btn">
-                <span>Imagen</span>
-                <input  name="examen" type="file" accept="image/*" @change="cambiarEstado('imagenLista')">
-              </div>
-              <div class="file-path-wrapper">
-                <input id="nombreImagen" class="file-path validate" type="text" >
-              </div>
-              <div class="row">
-                <div class="input-field col s6">
-                  <input v-model="comentario" name="comentario" id="comentario" type="text" class="validate">
-                  <label for="comentario">Comentario</label>
-                </div>
-                <div class="input-field col s6">
-                  <input v-model="profesor" name="profesor" id="profesor" type="text" class="validate">
-                  <label for="profesor">Profesor</label>
-                </div>
-              </div>
-            </div>
-            <div v-if="statusEnvio=='imagenLista'">
-              <button class="btn waves-effect waves-light right" type="submit" name="enviarExamen">Enviar
-                <i class="material-icons right">send</i>
-              </button>
-            </div>
-            <div v-if="statusEnvio=='subiendo'" class="preloader-wrapper right active">
-              <div class="spinner-layer spinner-blue">
-                <div class="circle-clipper left">
-                  <div class="circle"></div>
-                </div><div class="gap-patch">
-                  <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                  <div class="circle"></div>
-                </div>
-              </div>
+      </transition>
+    </div>
 
-              <div class="spinner-layer spinner-red">
-                <div class="circle-clipper left">
-                  <div class="circle"></div>
-                </div><div class="gap-patch">
-                  <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                  <div class="circle"></div>
-                </div>
-              </div>
-
-              <div class="spinner-layer spinner-yellow">
-                <div class="circle-clipper left">
-                  <div class="circle"></div>
-                </div><div class="gap-patch">
-                  <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                  <div class="circle"></div>
-                </div>
-              </div>
-
-              <div class="spinner-layer spinner-green">
-                <div class="circle-clipper left">
-                  <div class="circle"></div>
-                </div><div class="gap-patch">
-                  <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                  <div class="circle"></div>
-                </div>
-              </div>
-            </div>
-            <div class="right" v-if="statusEnvio=='exito'">
-              <i class="material-icons right">favorite</i>
-              <i class="material-icons right">favorite</i>
-              <i class="material-icons right">favorite</i>
-            </div>
-          </form>
-        </div>
+    <!-- card de colaborar -->
+    <div class="card green lighten-2">
+      <div class="card-content">
+        <br>
+        <br>
+        <span v-if="unidadSeleccionada==4" class="card-title flow-text center-align activator grey-text text-darken-4">AYÚDANOS - SUSTIS<i class="material-icons right">expand_more</i></span>
+        <span v-else class="card-title flow-text center-align activator grey-text text-darken-4">AYÚDANOS - {{unidadSeleccionada}}° UNIDAD<i class="material-icons right">expand_more</i></span>
+        <br>
+        <br>
+        <p class="flow-text center-align" v-if="unidadSeleccionada==4" ><span>Si deseas colaborar con esta página, abré la tarjeta y coloca un examen sustitorio, en los comentarios pones la unidad.</span></p>
+        <p class="flow-text center-align" v-else><span>Si deseas colaborar con esta página, abré la tarjeta y coloca un examen de la {{unidadSeleccionada}}° unidad.</span></p>
+        <br>
+        <br>
       </div>
-      <!-- fin de card de colaborar -->
       
-        <div v-if="!unidad1.hasOwnProperty('.value')">
-          <div class="row" v-if="unidadSeleccionada === 1">
-              <div class="col s12" v-for="examen in unidad1" :key="examen['.key']" v-if="examen.url">
-                 <div class="">
-                  <div class="card horizontal">
-                    <div class="card-image">
-                      <img class="responsive-img" :src="examen.url">
-                    </div>
-                    <div class="card-stacked">
-                      <div class="card-content flow-text green lighten-4">
-                        <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
-                        <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                      </div>
-                    </div>
+      <!-- Subir imagen -->
+      <div class="card-reveal green lighten-4">
+        <form @submit.prevent="enviarExamen">
+          <span ref="cerrarCard" class="center-align card-title grey-text text-darken-4">¡Gracias!<i class="material-icons right">close</i></span>
+          <div class="file-field input-field">
+            <div class="btn">
+              <span>Imagen</span>
+              <input  name="examen" type="file" accept="image/*" @change="cambiarEstado('imagenLista')">
+            </div>
+            <div class="file-path-wrapper">
+              <input id="nombreImagen" class="file-path validate" type="text" >
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input v-model="comentario" name="comentario" id="comentario" type="text" class="validate">
+                <label for="comentario">Comentario</label>
+              </div>
+              <div class="input-field col s6">
+                <input v-model="profesor" name="profesor" id="profesor" type="text" class="validate">
+                <label for="profesor">Profesor</label>
+              </div>
+            </div>
+          </div>
+          <div v-if="statusEnvio=='imagenLista'">
+            <button class="btn waves-effect waves-light right" type="submit" name="enviarExamen">Enviar
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+          <div v-if="statusEnvio=='subiendo'" class="preloader-wrapper right active">
+            <div class="spinner-layer spinner-blue">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+
+            <div class="spinner-layer spinner-red">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+
+            <div class="spinner-layer spinner-yellow">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+
+            <div class="spinner-layer spinner-green">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div><div class="gap-patch">
+                <div class="circle"></div>
+              </div><div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+          <div class="right" v-if="statusEnvio=='exito'">
+            <i class="material-icons right">favorite</i>
+            <i class="material-icons right">favorite</i>
+            <i class="material-icons right">favorite</i>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- fin de card de colaborar -->
+    
+    <div v-if="!unidad1.hasOwnProperty('.value')">
+      <div class="row" v-if="unidadSeleccionada === 1">
+          <div class="col s12" v-for="examen in unidad1" :key="examen['.key']" v-if="examen.url">
+              <div class="">
+              <div class="card horizontal">
+                <div class="card-image">
+                  <img class="responsive-img" :src="examen.url">
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content flow-text green lighten-4">
+                    <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
+                    <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
-        <div v-if="!unidad2.hasOwnProperty('.value')">
-          <div class="row" v-if="unidadSeleccionada === 2">
-              <div class="col s12 l6" v-for="examen in unidad2" :key="examen['.key']" v-if="examen.url">
-               
-                <div class="">
-                  <div class="card horizontal">
-                    <div class="card-image">
-                      <img class="responsive-img" :src="examen.url">
-                    </div>
-                    <div class="card-stacked">
-                      <div class="card-content flow-text green lighten-4">
-                        <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
-                        <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                      </div>
-                    </div>
+      </div>
+    </div>
+    <div v-if="!unidad2.hasOwnProperty('.value')">
+      <div class="row" v-if="unidadSeleccionada === 2">
+          <div class="col s12 l6" v-for="examen in unidad2" :key="examen['.key']" v-if="examen.url">
+            <div class="">
+              <div class="card horizontal">
+                <div class="card-image">
+                  <img class="responsive-img" :src="examen.url">
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content flow-text green lighten-4">
+                    <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
+                    <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
-        <div v-if="!unidad3.hasOwnProperty('.value')">
-          <div class="row" v-if="unidadSeleccionada === 3">
-              <div class="col s12 l6" v-for="examen in unidad3" :key="examen['.key']" v-if="examen.url">
-                <div class="">
-                  <div class="card horizontal">
-                    <div class="card-image">
-                      <img class="responsive-img" :src="examen.url">
-                    </div>
-                    <div class="card-stacked">
-                      <div class="card-content flow-text green lighten-4">
-                        <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
-                        <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                      </div>
-                    </div>
+      </div>
+    </div>
+    <div v-if="!unidad3.hasOwnProperty('.value')">
+      <div class="row" v-if="unidadSeleccionada === 3">
+          <div class="col s12 l6" v-for="examen in unidad3" :key="examen['.key']" v-if="examen.url">
+            <div class="">
+              <div class="card horizontal">
+                <div class="card-image">
+                  <img class="responsive-img" :src="examen.url">
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content flow-text green lighten-4">
+                    <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
+                    <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
-        <div v-if="!susti.hasOwnProperty('.value')">
-          <div class="row" v-if="unidadSeleccionada === 4">
-              <div class="col s12 l6" v-for="examen in susti" :key="examen['.key']" v-if="examen.url">
-                <div class="">
-                  <div class="card horizontal">
-                    <div class="card-image">
-                      <img class="responsive-img" :src="examen.url">
-                    </div>
-                    <div class="card-stacked">
-                      <div class="card-content flow-text green lighten-4">
-                        <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
-                        <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                      </div>
-                    </div>
+      </div>
+    </div>
+    <div v-if="!susti.hasOwnProperty('.value')">
+      <div class="row" v-if="unidadSeleccionada === 4">
+          <div class="col s12 l6" v-for="examen in susti" :key="examen['.key']" v-if="examen.url">
+            <div class="">
+              <div class="card horizontal">
+                <div class="card-image">
+                  <img class="responsive-img" :src="examen.url">
+                </div>
+                <div class="card-stacked">
+                  <div class="card-content flow-text green lighten-4">
+                    <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
+                    <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -316,7 +316,7 @@ export default {
     {
       // console.log('llega');
       // let file = document.querySelector('input[type=file]').files[0];
-      let urlImg = 'examenes/' + this.cadenaAleatoria() + '-' + curso + '-' + unidad
+      let urlImg = 'examenes/' + this.cadenaAleatoria() + '-' + curso + '-' + unidad + '.jpg'
       let src, referencia
       console.log('subiendo!:' + urlImg);
       this.cambiarEstado('subiendo')
