@@ -96,7 +96,7 @@ const routes = [
   {path: '/home', component: Home},
   {path: '/cursos/:id', name: 'cursos', component: Cursos},
   {path: '/examenes/:id', name: 'examenes', component: Examenes},
-  {path: '*', Home},
+  {path: '*', component: Home},
 ]
 
 const router = new VueRouter({

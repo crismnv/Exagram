@@ -27,7 +27,7 @@
         <div class="card green lighten-2">
           <div class="card-content white-text">
             <span class="card-title container row">
-              <i class="material-icons icono center-align col sm-4 offset-s6 l4 offset-l7">info</i>
+              <i class="material-icons icono center-align col sm-4 offset-s5 l4 offset-l7">info</i>
             </span>
             <br>
             <p class="flow-text center-align">
@@ -41,7 +41,7 @@
         <div class="card green lighten-2">
           <div class="card-content white-text">
             <span class="card-title container row">
-              <i class="material-icons icono center-align col sm-4 l4 offset-l7 offset-s6">favorite</i>
+              <i class="material-icons icono center-align col sm-4 l4 offset-l7 offset-s5">favorite</i>
             </span>
             <br>
             <p class="flow-text center-align">

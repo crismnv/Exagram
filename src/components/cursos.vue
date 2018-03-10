@@ -2,9 +2,9 @@
     <div class="container">
         <h2 class=" center-align red-text text-lighten-3">{{nombre['.value']}}</h2>
         <!-- <p  v-for="ciclo in ciclos['.value']" :key="ciclo['.key']" v-if="ciclo">{{ciclo}}------- </p> -->
-        <ul class="collection with-header" v-for="ciclo in ciclos['.value']" :key="ciclo['.key']" v-if="ciclo">
-            <li class="collection-header green lighten-2"><h4>{{ciclo.numero}}° Ciclo</h4></li>
-            <router-link class="green lighten-3 collection-item black-text" :to="{name: 'examenes', params: {id:curso.id}}" v-for="curso in ciclo.cursos" :key="curso['.key']">{{curso.nombre}}</router-link>
+        <ul class="collection with-header" v-for="ciclo in ciclos" :key="ciclo['.key']">
+          <li class="collection-header green lighten-2"><h4>{{ciclo.numero}}° Ciclo</h4></li>
+          <router-link class="green lighten-3 collection-item black-text" :to="{name: 'examenes', params: {id:curso.id}}" v-for="curso in ciclo.cursos" :key="curso['.key']">{{curso.nombre}}</router-link>
         </ul>
     </div>
     

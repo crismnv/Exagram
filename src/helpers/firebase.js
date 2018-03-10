@@ -12,5 +12,5 @@ const app = initializeApp({
 
 export const db = app.database()
 export const dbRefCarreras = db.ref('data').child('carreras')
-export const dbRefExamenes = db.ref('examenes')
+export const dbRefExamenes = db.ref('data').child('examenes')
 export const storageRef  = app.storage().ref()

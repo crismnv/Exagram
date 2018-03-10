@@ -160,7 +160,7 @@
                   <div class="card-content flow-text green lighten-4">
                     <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
                     <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Ver Imagen Completa</a>
                   </div>
                 </div>
               </div>
@@ -180,7 +180,7 @@
                   <div class="card-content flow-text green lighten-4">
                     <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
                     <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Ver Imagen Completa</a>
                   </div>
                 </div>
               </div>
@@ -200,7 +200,7 @@
                   <div class="card-content flow-text green lighten-4">
                     <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
                     <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Ver Imagen Completa</a>
                   </div>
                 </div>
               </div>
@@ -220,7 +220,7 @@
                   <div class="card-content flow-text green lighten-4">
                     <p><span  style="font-weight: bold">Profesor(a):</span>{{examen.profesor}}</p>
                     <p><span  style="font-weight: bold">Comentario:</span>{{examen.comentario}}</p>
-                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Descargar</a>
+                    <a target="_blank" style="font-weight: bold" class="green-text text-darken-4" :href="examen.url">Ver Imagen Completa</a>
                   </div>
                 </div>
               </div>
