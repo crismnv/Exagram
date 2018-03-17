@@ -11,7 +11,10 @@
           </div> -->
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4">{{carrera.abreviacion}}<i class="material-icons right">expand_more</i></span>
-            <p><router-link :carrera="carrera['.key']" :to="{name: 'cursos', params: {id: carrera['.key'], nombre: carrera.nombre}}">Ver Contenido</router-link></p>
+            <p><router-link :carrera="carrera['.key']" 
+            :to="{name: 'cursos', params: {id: carrera['.key'], nombre: carrera.nombre}}">
+              Ver Contenido
+            </router-link></p>
           </div>
           <div class="card-reveal green lighten-1 green-text text-darken-4">
             <span class="card-title ">{{carrera.abreviacion}}<i class="material-icons right">close</i></span>
